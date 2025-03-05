@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1677768838785.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1802487254",
+    "id" : "A03D1BFB",
+    "lastKnownWriteTime" : 1677707303,
+    "last_content_update" : 1677707303,
+    "path" : "~/Desktop/Baie_James_Paper/02_mixed_stock/Mixed_stock_report.R",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "19,0",
+        "scrollLine" : "7"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

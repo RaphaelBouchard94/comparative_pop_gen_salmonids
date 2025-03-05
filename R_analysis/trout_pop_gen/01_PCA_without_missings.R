@@ -1,0 +1,371 @@
+rm(list = ls())
+
+#####################
+#######Library#######
+#####################
+
+library(tidyverse)
+library(magrittr)
+library(paletteer)
+library(plotly)
+library(vegan)
+library(ade4)
+library(MASS)
+
+
+#####################
+#########DATA########
+#####################
+
+cov <- read.table("~/Desktop/Baie_James_Paper/01_population_genomics/trout_pop_gen/data/pcangsd_without_missing/all_maf0.05pctind0.85_maxdepth10_ALL_CHR_singletons.pruned.cov")
+
+png("~/Desktop/Baie_James_Paper/01_population_genomics/trout_pop_gen/figures/broken_stick_pca.png")
+
+pca <- rda(cov)
+
+dev.off()
+
+screeplot(pca)
+
+#Make PCA using covariance matrix
+pca <- eigen(cov)
+pca.mat<-as.matrix(pca$vectors %*% (diag(pca$values))^0.5)
+
+#add column names
+nPC<-dim(pca$vectors)[2]
+col_PC<-vector(length=nPC)
+for (i in 1 : nPC) {col_PC[i]<-paste0("PC",i)}
+colnames(pca.mat)<-c(col_PC)
+
+#add rownames
+samples <- read.table("~/Desktop/Baie_James_Paper/01_population_genomics/trout_pop_gen/data/pcangsd_without_missing/ind.txt")
+rownames(pca.mat)<-samples$V1
+
+#calculate varsum(eigen_mats$values[eigen_mats$values>=0]
+var1<-round(pca$values[1]*100/sum(pca$values[pca$values>=0]),2)
+var2<-round(pca$values[2]*100/sum(pca$values[pca$values>=0]),2)
+var3<-round(pca$values[3]*100/sum(pca$values[pca$values>=0]),2)
+var4<-round(pca$values[4]*100/sum(pca$values[pca$values>=0]),2)
+var6<-round(pca$values[6]*100/sum(pca$values[pca$values>=0]),2)
+
+
+#Make dataset to plot
+pca_trout <- data.frame(pca.mat[,1:20])
+
+#sample id column
+pca_trout$id <- samples$V1
+
+#pop column
+pca_trout %<>% mutate(pop = case_when(str_detect(string = id, "BEA") ~ "BEA",
+                                      str_detect(string = id, "FIS") ~ "EAS",
+                                      str_detect(string = id, "JAC") ~ "JAC",
+                                      str_detect(string = id, "SAB") ~ "SAB",
+                                      str_detect(string = id, "BIA") ~ "BIA",
+                                      str_detect(string = id, "LAG") ~ "LAG",
+                                      str_detect(string = id, "TIL") ~ "TIL",
+                                      str_detect(string = id, "MOA") ~ "SAB",
+                                      str_detect(string = id, "ROG") ~ "ROG",
+                                      str_detect(string = id, "EAS") ~ "EAS",
+                                      str_detect(string = id, "CHIm") ~ "KAA",
+                                      str_detect(string = id, "CON") ~ "CON",
+                                      str_detect(string = id, "AQU") ~ "AQU",
+                                      str_detect(string = id, "REN") ~ "REN",
+                                      str_detect(string = id, "WAS") ~ "BRO",
+                                      str_detect(string = id, "BRO") ~ "BRO"))
+
+##add info on pop
+pop_file <- read.table("~/Desktop/Baie_James_Paper/01_population_genomics/comparative_analysis/data/pop_sampled.txt",header=T)
+
+pop_file %>% arrange(desc(lat)) 
+
+pca_trout %<>% left_join(pop_file,by = c("pop" = "pop_code"))
+
+pca_trout %>% group_by(pop) %>% count()
+
+ggplot(pca_trout, aes(x = -PC1,y = PC2,color = fct_reorder(pop,desc(lat))))+
+  geom_point(alpha=0.8,size = 3)+
+  xlab("PC1 (1.93%)")+
+  ylab("PC2 (1.42%)")+
+  scale_color_manual(values =  rev(c(
+    "#d53e4f",
+    "#F67E4BFF",
+    "#FDB366FF",
+    "#FEDA8BFF",
+    "#EAECCCFF",
+    "#abdda4",
+    "#66c2a5",
+    "#74add1",
+    "#4575b4",
+    "#313695",
+    "#5e4fa2"
+  )))+
+  theme_bw()+
+  theme(panel.grid = element_blank(),
+        axis.title.x = element_text(size = 18),
+        axis.title.y = element_text(size = 18),
+        axis.text.x = element_text(size = 18),
+        axis.text.y = element_text(size = 18),
+        legend.title = element_blank(),
+        legend.text = element_text(size = 18))
+
+ggsave("~/Desktop/Baie_James_Paper/01_population_genomics/trout_pop_gen/figures/pc1_pc2_118k_snp_ld_pruned.jpeg",height=6,width = 8)
+
+ggplot(pca_trout, aes(x = PC3,y = PC4,color = fct_reorder(pop,desc(lat))))+
+  geom_point(alpha=0.8,size = 3)+
+  xlab("PC3 (1.21%)")+
+  ylab("PC4 (1.05%)")+
+  scale_color_manual(values =  rev(c(
+    "#d53e4f",
+    "#F67E4BFF",
+    "#FDB366FF",
+    "#FEDA8BFF",
+    "#EAECCCFF",
+    "#abdda4",
+    "#66c2a5",
+    "#74add1",
+    "#4575b4",
+    "#313695",
+    "#5e4fa2"
+  )))+
+  theme_bw()+
+  theme(panel.grid = element_blank(),
+        axis.title.x = element_text(size = 18),
+        axis.title.y = element_text(size = 18),
+        axis.text.x = element_text(size = 18),
+        axis.text.y = element_text(size = 18),
+        legend.title = element_blank(),
+        legend.text = element_text(size = 18))
+
+ggsave("~/Desktop/Baie_James_Paper/01_population_genomics/trout_pop_gen/figures/pc3_pc4_118k_snp_ld_pruned.jpeg",height=6,width = 8)
+
+ggplot(pca_trout, aes(x = PC5,y = PC6,color = fct_reorder(pop,desc(lat))))+
+  geom_point(alpha=0.8,size = 3)+
+  xlab("PC5 (1.21%)")+
+  ylab("PC6 (1.05%)")+
+  scale_color_manual(values =  rev(c(
+    "#d53e4f",
+    "#F67E4BFF",
+    "#FDB366FF",
+    "#FEDA8BFF",
+    "#EAECCCFF",
+    "#abdda4",
+    "#66c2a5",
+    "#74add1",
+    "#4575b4",
+    "#313695",
+    "#5e4fa2"
+  )))+
+  theme_bw()+
+  theme(panel.grid = element_blank(),
+        axis.title.x = element_text(size = 18),
+        axis.title.y = element_text(size = 18),
+        axis.text.x = element_text(size = 18),
+        axis.text.y = element_text(size = 18),
+        legend.title = element_blank(),
+        legend.text = element_text(size = 18))
+
+ggsave("~/Desktop/Baie_James_Paper/01_population_genomics/trout_pop_gen/figures/pc5_pc6_118k_snp_ld_pruned.jpeg",height=6,width = 8)
+
+
+####################################
+#Find best cluster with APCLUSTER
+library(apcluster)
+
+df_apclus <- pca_trout %>% dplyr::select(PC1,PC2,PC3,PC4,PC6,id)
+
+d.apclus <- apcluster(negDistMat(r=2),df_apclus,q=0.5)
+
+length(d.apclus@clusters)
+
+cl1a <- cutree(d.apclus, k=8)
+
+
+plot(cl1a,df_apclus,
+     col=viridis::viridis(10,option="magma"),
+     bg=viridis::viridis(10,option="magma"))
+
+############################
+#Make plot pretty with ggplot
+library(data.table)
+
+tidy_apclust_res <- reshape2::melt(d.apclus@clusters)
+
+tidy_apclust_res$value <- as.factor(tidy_apclust_res$value)
+
+df_apclus$rown <- as.factor(row.names(df_apclus))
+
+df_apclus %<>% left_join(tidy_apclust_res,by=c("rown"="value"))
+
+df_apclus$L1 <- as.factor(df_apclus$L1)
+
+
+df_apclus %<>% mutate(pop_clus = case_when(L1 == "1" ~ "SAB",
+                                           L1 == "2" ~ "BEA",
+                                           L1 == "3" ~ "BIA",
+                                           L1 == "4" ~ "AQU",
+                                           L1 == "5" ~ "LAG",
+                                           L1 == "6" ~ "REN",
+                                           L1 == "7" ~ "KAA",
+                                           L1 == "8" ~ "BRO",
+                                           L1 == "9" ~ "EAS",
+                                           L1 == "10" ~ "CON"))
+
+sites <- read.table("~/Desktop/Baie_James_Paper/01_population_genomics/trout_pop_gen/data/fst/pop_sampled.txt",header=T)
+
+
+df_apclus %<>% left_join(sites,by = c("pop_clus" = "pop_code"))
+
+library(plyr)
+
+find_hull <- function(df)df[chull(df$PC1, df$PC2), ]
+hulls <- ddply(df_apclus, "pop_clus", find_hull)
+
+ggplot(df_apclus,aes(x=-PC1,y=PC2,colour = reorder(pop_clus,-lat),fill = reorder(pop_clus,-lat)))+
+  geom_point(alpha=0.8,size = 2)+
+  geom_polygon(data = hulls,alpha = 0.5)+
+  xlab("PC1")+
+  scale_color_manual(values =  rev(c(
+    "#d53e4f",
+    "#F67E4BFF",
+    "#FDB366FF",
+    "#FEDA8BFF",
+    "#EAECCCFF",
+    "#abdda4",
+    "#66c2a5",
+    "#74add1",
+    "#4575b4",
+    "#313695"
+  )))+
+  scale_fill_manual(values =  rev(c(
+    "#d53e4f",
+    "#F67E4BFF",
+    "#FDB366FF",
+    "#FEDA8BFF",
+    "#EAECCCFF",
+    "#abdda4",
+    "#66c2a5",
+    "#74add1",
+    "#4575b4",
+    "#313695"
+  )))+
+  theme_bw()+
+  theme(panel.grid = element_blank(),
+        axis.title.x = element_text(size = 18),
+        axis.title.y = element_text(size = 18),
+        axis.text.x = element_text(size = 18),
+        axis.text.y = element_text(size = 18),
+        legend.text = element_text(size = 18),
+        legend.title=element_blank())
+
+ggsave("~/Desktop/Baie_James_Paper/01_population_genomics/trout_pop_gen/figures/ap_cluster_res_k10_PC1_PC2.png",height=6,width = 8)
+
+
+find_hull2 <- function(df)df[chull(df$PC3, df$PC4), ]
+hulls2 <- ddply(df_apclus, "pop_clus", find_hull2)
+
+ggplot(df_apclus,aes(x=PC3,y=PC4,colour = reorder(pop_clus,-lat),fill = reorder(pop_clus,-lat)))+
+  geom_point(alpha=0.8,size = 2)+
+  geom_polygon(data = hulls2,alpha = 0.5)+
+  scale_color_manual(values =  rev(c(
+    "#d53e4f",
+    "#F67E4BFF",
+    "#FDB366FF",
+    "#FEDA8BFF",
+    "#EAECCCFF",
+    "#abdda4",
+    "#66c2a5",
+    "#74add1",
+    "#4575b4",
+    "#313695"
+  )))+
+  scale_fill_manual(values =  rev(c(
+    "#d53e4f",
+    "#F67E4BFF",
+    "#FDB366FF",
+    "#FEDA8BFF",
+    "#EAECCCFF",
+    "#abdda4",
+    "#66c2a5",
+    "#74add1",
+    "#4575b4",
+    "#313695"
+  )))+
+  xlab("PC3 (1.27%)")+
+  ylab("PC4 (1%)")+
+  theme_bw()+
+  theme(panel.grid = element_blank(),
+        axis.title.x = element_text(size = 18),
+        axis.title.y = element_text(size = 18),
+        axis.text.x = element_text(size = 18),
+        axis.text.y = element_text(size = 18),
+        legend.text = element_text(size = 18),
+        legend.title=element_blank())
+
+ggsave("~/Desktop/Baie_James_Paper/01_population_genomics/trout_pop_gen/figures/ap_cluster_res_k10_PC3_PC4.png",height=6,width = 8)
+
+
+find_hull3 <- function(df)df[chull(df$PC4, df$PC6), ]
+hulls3 <- ddply(df_apclus, "pop_clus", find_hull3)
+
+ggplot(df_apclus,aes(x=PC4,y=PC6,colour = reorder(pop_clus,-lat),fill = reorder(pop_clus,-lat)))+
+  geom_point(alpha=0.8,size = 2)+
+  geom_polygon(data = hulls3,alpha = 0.5)+
+  scale_color_manual(values =  rev(c(
+    "#d53e4f",
+    "#F67E4BFF",
+    "#FDB366FF",
+    "#FEDA8BFF",
+    "#EAECCCFF",
+    "#abdda4",
+    "#66c2a5",
+    "#74add1",
+    "#4575b4",
+    "#313695"
+  )))+
+  scale_fill_manual(values =  rev(c(
+    "#d53e4f",
+    "#F67E4BFF",
+    "#FDB366FF",
+    "#FEDA8BFF",
+    "#EAECCCFF",
+    "#abdda4",
+    "#66c2a5",
+    "#74add1",
+    "#4575b4",
+    "#313695"
+  )))+
+  ylab("PC5 (0.44%)")+
+  xlab("PC4 (1%)")+
+  theme_bw()+
+  theme(panel.grid = element_blank(),
+        axis.title.x = element_text(size = 18),
+        axis.title.y = element_text(size = 18),
+        axis.text.x = element_text(size = 18),
+        axis.text.y = element_text(size = 18),
+        legend.text = element_text(size = 18),
+        legend.title=element_blank())
+
+ggsave("~/Desktop/Baie_James_Paper/01_population_genomics/trout_pop_gen/figures/ap_cluster_res_k10_PC5_PC6.png",height=6,width = 8)
+
+
+cluster_assigned <- data.frame(indiv = gsub("_+$","",substr(df_apclus$id,142,157)),
+                               pop_clus = df_apclus$pop_clus)
+
+
+write.table(cluster_assigned,"~/Desktop/Baie_James_Paper/02_mixed_stock/brook_trout/03_mixed_stock_analysis/source_ref_unit.txt",row.names = F,quote = F)
+
+#--->
+
+
+pca_trout$cluster <- df_apclus$pop_clus
+
+write.table(pca_trout,"data/individual_assignment_analysis/ind_assignment.txt")
+
+
+#--->
+
+write_rds(df_apclus,file = "~/Desktop/Baie_James_Paper/01_population_genomics/comparative_analysis/data/ap_cluster/ap_cluster_trout.Rds")
+
+
+
+

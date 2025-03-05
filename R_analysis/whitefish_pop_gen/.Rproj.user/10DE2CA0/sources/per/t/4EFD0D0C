@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1680727176546.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2658758523",
+    "id" : "4EFD0D0C",
+    "lastKnownWriteTime" : 1681238312,
+    "last_content_update" : 1681238312,
+    "path" : "~/Desktop/Baie_James_Paper/01_population_genomics/environmental_data/ENV_data_extraction.R",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "20,30",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,9 @@
+Input: lname=06_pruned_singletons/all_maf0.05pctind0.8_maxdepth10_ALL_CHR.singletons.pruned.clean.beagle.gz pname=(null) nPop=2, fname=(null) qname=(null) printGeno=false outfiles=08_ngsadmix/all_maf0.05_pctind0.8_maxdepth10_pruned_singletons_2_18
+Setup: seed=1702919880 nThreads=20 method=1
+Convergence: maxIter=2000 tol=0.000010 tolLike50=0.100000 dymBound=0
+Filters: misTol=0.050000 minMaf=0.050000 minLrt=0.000000 minInd=0
+Input file has dim: nsites=118860 nind=362
+Input file has dim (AFTER filtering): nsites=113432 nind=362
+	[ALL done] cpu-time used =  1216.94 sec
+	[ALL done] walltime used =  119.00 sec
+best like=-27640158.383627 after 489 iterations

@@ -1,0 +1,26 @@
+{
+    "id": "77ADD75F",
+    "path": "~/Desktop/Baie_James_Paper/01_population_genomics/whitefish_pop_gen/01_PCA.R",
+    "project_path": "01_PCA.R",
+    "type": "r_source",
+    "hash": "3951730148",
+    "contents": "",
+    "dirty": false,
+    "created": 1710338267866.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "33,0",
+        "scrollLine": "17"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1729800579,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1729800579285,
+    "read_only": false,
+    "read_only_alternatives": []
+}

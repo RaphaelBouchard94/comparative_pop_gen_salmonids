@@ -1,0 +1,13 @@
+awk '
+  NR == 1 { header = $0; next }         # Save the first line as the header
+  /^pop/ { pop_count++; next }           # Detect the start of a new population
+  { 
+    if (pop_count > 0) {
+      file_name = "Population_" pop_count ".txt"
+      if (FNR == 2) {                    # Only write the header once to each file
+        print header > file_name
+      }
+      print $0 >> file_name              # Append data to the corresponding population file
+    } 
+  }
+' all_pop_safo.gen2 

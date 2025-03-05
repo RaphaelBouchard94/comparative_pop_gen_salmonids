@@ -1,0 +1,122 @@
+rm(list=ls())
+
+library(tidyverse)
+library(readxl)
+library(magrittr)
+
+########################
+# 2 - Load Data  #
+########################
+#List les fichiers extractions
+
+files <- list.files(path = "~/Documents/03_PhD/02_Projet/Laboratoire/RB_extractions/Extractions", 
+                    pattern = "xlsx",
+                    full.names = T)
+
+##################
+#outdated
+#Importe les fichiers extractions en une commande
+
+for (i in 1:length(files)){
+  new_df <-  read_xlsx(files[i])
+  assign(paste(substr(files[i],90,113)),new_df)
+}
+##################
+
+#Importe les fichiers dans une liste puis fusionne la liste
+
+file_list = list()
+for (i in 1:length(files)){
+  a <-  read_xlsx(files[i])
+  file_list[[substr(files[i],90,113)]] = a
+}
+
+extraction <-  data.frame(data.table::rbindlist(file_list))
+
+#List les fichiers extractions
+
+files <- list.files(path = "~/Documents/03_PhD/02_Projet/Laboratoire/RB_extractions/Extractions", 
+                    pattern = "xlsx",
+                    full.names = T)
+
+##################
+##################
+##################
+
+#List les fichiers sequencage gt-seq
+
+files <- list.files(path = "~/Desktop/Baie_James_Paper/02_mixed_stock/gt_seq_sequencing/", 
+                    pattern = "xlsx",
+                    full.names = T)
+
+#outdated
+#Importe les fichiers sequencage en une commande
+
+for (i in 1:length(files)){
+  new_df <-  read_xlsx(files[i])
+  assign(paste(substr(files[i],90,113)),new_df)
+}
+##################
+
+#Importe les fichiers dans une liste puis fusionne la liste
+
+file_list = list()
+for (i in 1:length(files)){
+  a <-  read_xlsx(files[i])
+  file_list[[substr(files[i],90,113)]] = a
+}
+
+sequencage <-  data.frame(data.table::rbindlist(file_list))
+
+
+########################
+
+#load mixed-stock samples database
+
+db <- read_xlsx("~/Desktop/Baie_James_Paper/02_mixed_stock/db_mixed_stock_12_22.xlsx")
+
+#clean mixed-stock database
+db %<>% distinct(FISHES_ID,.keep_all=T)
+
+db$Species <- recode(db$Species,`Brook Trout`="Trout")
+
+db$Species <- recode(db$Species,whitefish="Whitefish")
+
+db$Species <- recode(db$Species,cisco="Cisco")
+
+#count number of samples per species
+db %>% group_by(Species,Community) %>% count()
+
+########################
+#Add extraction information
+
+db %<>% left_join(extraction,by=c("FISHES_ID"="IndividualName"))
+
+db %>% group_by(PlateBarcode) %>% count() 
+
+db %>% filter(is.na(PlateBarcode)) %>% View()
+
+########################
+#Add sequencing information
+
+db %<>% left_join(sequencage,by=c("FISHES_ID"="IndividualName"))
+
+########################
+#WHITEFISH
+
+cocl_to_sequence<-db %>% filter(Species == "Whitefish",is.na(i7.name))
+
+cocl_to_sequence %>% group_by(PlateBarcode) %>% count()
+
+
+########################
+#BROOK TROUT
+
+db %>% filter(Species == "Trout",!Community == "Whapmagoostui") %>% count()
+
+db %>% filter(Species == "Trout",!Community == "Whapmagoostui",!is.na(PlateBarcode)) %>% group_by(PlateBarcode) %>% count()
+
+
+
+
+

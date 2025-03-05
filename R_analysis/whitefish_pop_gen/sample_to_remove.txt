@@ -1,0 +1,13 @@
+/project/lbernatchez/01_projects/Projects/Raphael_Bouchard/2022-11-15_wgs_sample_preparation_cocl/09_no_overlap/NS.2010.003.N703---S513.coclBIAs_2409-21_1.trimmed.sorted.bam.dedup.bam.no_overlap.bam
+/project/lbernatchez/01_projects/Projects/Raphael_Bouchard/2022-11-15_wgs_sample_preparation_cocl/09_no_overlap/NS.2010.003.N710---S513.coclBIAs_2416-21_1.trimmed.sorted.bam.dedup.bam.no_overlap.bam
+/project/lbernatchez/01_projects/Projects/Raphael_Bouchard/2022-11-15_wgs_sample_preparation_cocl/09_no_overlap/NS.2010.003.N702---S520.coclCHIm_2229-21_1.trimmed.sorted.bam.dedup.bam.no_overlap.bam
+/project/lbernatchez/01_projects/Projects/Raphael_Bouchard/2022-11-15_wgs_sample_preparation_cocl/09_no_overlap/NS.2010.003.N704---S520.coclCHIm_2231-21_1.trimmed.sorted.bam.dedup.bam.no_overlap.bam
+/project/lbernatchez/01_projects/Projects/Raphael_Bouchard/2022-11-15_wgs_sample_preparation_cocl/09_no_overlap/NS.2010.003.N705---S520.coclCHIm_2232-21_1.trimmed.sorted.bam.dedup.bam.no_overlap.bam
+/project/lbernatchez/01_projects/Projects/Raphael_Bouchard/2022-11-15_wgs_sample_preparation_cocl/09_no_overlap/NS.2010.003.N707---S520.coclCHIm_2234-21_1.trimmed.sorted.bam.dedup.bam.no_overlap.bam
+/project/lbernatchez/01_projects/Projects/Raphael_Bouchard/2022-11-15_wgs_sample_preparation_cocl/09_no_overlap/NS.2010.003.N711---S520.coclCHIm_2236-21_1.trimmed.sorted.bam.dedup.bam.no_overlap.bam
+/project/lbernatchez/01_projects/Projects/Raphael_Bouchard/2022-11-15_wgs_sample_preparation_cocl/09_no_overlap/NS.2010.003.N714---S521.coclCHIm_2613-21_1.trimmed.sorted.bam.dedup.bam.no_overlap.bam
+/project/lbernatchez/01_projects/Projects/Raphael_Bouchard/2022-11-15_wgs_sample_preparation_cocl/09_no_overlap/NS.2010.003.N715---S518.coclCHIm_2227-21_1.trimmed.sorted.bam.dedup.bam.no_overlap.bam
+/project/lbernatchez/01_projects/Projects/Raphael_Bouchard/2022-11-15_wgs_sample_preparation_cocl/09_no_overlap/NS.2010.003.N716---S521.coclCHIm_2618-21_1.trimmed.sorted.bam.dedup.bam.no_overlap.bam
+/project/lbernatchez/01_projects/Projects/Raphael_Bouchard/2021-10-18_wgs_sample_preparation_whitefish_lowcov_same_genome_as_claire/09_no_overlap/coclEASm_007-20_1.trimmed.sorted.bam.dedup.bam.no_overlap.bam
+/project/lbernatchez/01_projects/Projects/Raphael_Bouchard/2022-11-15_wgs_sample_preparation_cocl/09_no_overlap/NS.2010.003.N704---S516.coclNOTs_7001-21_1.trimmed.sorted.bam.dedup.bam.no_overlap.bam
+/project/lbernatchez/01_projects/Projects/Raphael_Bouchard/2022-11-15_wgs_sample_preparation_cocl/09_no_overlap/NS.2010.003.N706---S516.coclNOTs_7003-21_1.trimmed.sorted.bam.dedup.bam.no_overlap.bam

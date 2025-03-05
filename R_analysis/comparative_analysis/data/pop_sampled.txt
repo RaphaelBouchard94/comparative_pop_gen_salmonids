@@ -1,0 +1,15 @@
+pop	pop_code	lat	long	species_sampled
+Roggan	ROG	54.45	-79.507696	2
+Kaapsaoui	KAA	54.3	-79.463733	2
+Biagadwshi	BIA	54.010858 -79.058466		2
+La_Grande	LAG	53.821906 -78.9		3
+Aquatuc	AQU	53.671480 -79.073167		1
+Beaver	BEA	53.385666 -79.014775		2
+Sabacunica	SAB	52.842839 -78.767950		3
+Renoyer	REN	52.45 -78.440599		1
+Conn	CON	52.4	-78.519324	3
+Eastmain	EAS	52.238498 -78.3		3
+Jack	JAC	51.9909	-78.662941	1
+Rupert	RUP	51.474206 -78.809795		2
+Broadback 	BRO	51.347355	-78.845038	1
+Nottaway	NOT	51.268303 -78.930230		2

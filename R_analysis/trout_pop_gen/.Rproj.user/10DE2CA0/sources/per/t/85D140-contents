@@ -1,0 +1,83 @@
+rm(list = ls())
+
+####################################
+###########Library##################
+####################################
+
+library(tidyverse)
+library(magrittr)
+library(data.table)
+library(RColorBrewer)
+library(ggpubr)
+
+####################################
+######  Admixture analysis  ########
+####################################
+
+#import ngsadmix proportion of admixture
+
+files <- list.files(path = "~/Desktop/Baie_James_Paper/01_population_genomics/trout_pop_gen/data/ngs_admix/", 
+                    pattern = "qopt",
+                    full.names = T)
+
+for (i in 1:length(files)){
+  new_df <-  read.table(files[i])
+  assign(paste("k",substr(files[i],153,157)),new_df)
+}
+
+id_jb <- read.table("sample_id.txt")
+
+
+id_jb[duplicated(id_jb$V1),]
+
+
+#K5
+k5$sample_id <- id_jb$V1
+
+k5 %<>% distinct(sample_id,.keep_all = T)
+
+k5 %<>% arrange(V1,V2,V3,V4,V5) %>% 
+  gather(V1:V5,key = "cluster",value = "prob")
+
+
+
+k5 %<>% mutate(pop = case_when(str_detect(string = sample_id, "RUP") ~ "RUP",
+                               str_detect(string = sample_id, "NOT") ~ "NOT",
+                               str_detect(string = sample_id, "LAG") ~ "LAG",
+                               str_detect(string = sample_id, "EAS") ~ "EAS",
+                               str_detect(string = sample_id, "SAB") ~ "SAB"))
+
+k5 %>% 
+  ggplot(aes(x = reorder(sample_id , prob), y = prob ,fill = cluster))+
+  geom_bar(stat = "identity",position = "stack")+
+  facet_wrap(~pop, scales = "free_x")+
+  theme(axis.text.x = element_text(angle = 90))
+
+#K6
+
+k6$sample_id <- id_jb$V1
+
+k6 %<>% distinct(sample_id,.keep_all = T)
+
+k6 %<>% arrange(V1,V2,V3,V4,V5,V6) %>% 
+  gather(V1:V6,key = "cluster",value = "prob")
+
+k6 %<>% mutate(pop = case_when(str_detect(string = sample_id, "RUP") ~ "RUP",
+                               str_detect(string = sample_id, "NOT") ~ "NOT",
+                               str_detect(string = sample_id, "LAG") ~ "LAG",
+                               str_detect(string = sample_id, "EAS") ~ "EAS",
+                               str_detect(string = sample_id, "SAB") ~ "SAB"))
+
+k6 %>% 
+  ggplot(aes(x = reorder(sample_id , prob), y = prob ,fill = cluster))+
+  geom_bar(stat = "identity",position = "stack")+
+  facet_wrap(~pop, scales = "free_x")+
+  theme(axis.text.x = element_text(angle = 90))
+
+k6 %>% 
+  filter(pop == "RUP") %>% 
+  ggplot(aes(x = reorder(sample_id , prob), y = prob ,fill = cluster))+
+  geom_bar(stat = "identity",position = "stack")+
+  facet_wrap(~pop, scales = "free_x")+
+  theme(axis.text.x = element_text(angle = 90))
+

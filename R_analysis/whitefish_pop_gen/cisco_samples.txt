@@ -1,0 +1,4 @@
+/project/lbernatchez/01_projects/Projects/Raphael_Bouchard/2022-05-12_wgs_sample_preparation_cocl/09_no_overlap/NS.1838.001.N721---S507.coclBIAs_2423-21_1.trimmed.sorted.bam.dedup.bam.no_overlap.bam
+/project/lbernatchez/01_projects/Projects/Raphael_Bouchard/2022-05-12_wgs_sample_preparation_cocl/09_no_overlap/NS.1834.003.N703---S508.coclLAGs_1882-21_1.trimmed.sorted.bam.dedup.bam.no_overlap.bam
+/project/lbernatchez/01_projects/Projects/Raphael_Bouchard/2022-05-12_wgs_sample_preparation_cocl/09_no_overlap/NS.1838.001.N722---S502.coclROGs_2165-21_1.trimmed.sorted.bam.dedup.bam.no_overlap.bam
+/project/lbernatchez/01_projects/Projects/Raphael_Bouchard/2022-05-12_wgs_sample_preparation_cocl/09_no_overlap/NS.1838.002.N705---S516.coclROGs_2173-21_1.trimmed.sorted.bam.dedup.bam.no_overlap.bam

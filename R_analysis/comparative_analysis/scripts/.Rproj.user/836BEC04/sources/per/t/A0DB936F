@@ -1,0 +1,28 @@
+{
+    "id": "A0DB936F",
+    "path": null,
+    "project_path": null,
+    "type": "object_explorer",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1741019302967.0,
+    "source_on_save": false,
+    "relative_order": 3,
+    "properties": {
+        "id": "7d79ddcbcdbc4257a89316943e4ad076",
+        "name": "cocl_vcf",
+        "title": "cocl_vcf",
+        "language": "R",
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 0,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1741019302967,
+    "read_only": false,
+    "read_only_alternatives": []
+}

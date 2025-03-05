@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1677768771762.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2027474416",
+    "id" : "85D140",
+    "lastKnownWriteTime" : 1677769077,
+    "last_content_update" : 1677769077508,
+    "path" : "~/Desktop/Baie_James_Paper/01_population_genomics/trout_pop_gen/02_ngsAdmix.R",
+    "project_path" : "02_ngsAdmix.R",
+    "properties" : {
+        "cursorPosition" : "83,0",
+        "scrollLine" : "54",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
