@@ -171,7 +171,7 @@ ggsave("~/Desktop/Baie_James_Paper/01_population_genomics/trout_pop_gen/figures/
 #Find best cluster with APCLUSTER
 library(apcluster)
 
-df_apclus <- pca_trout %>% dplyr::select(PC1,PC2,PC3,PC4,PC6,id)
+df_apclus <- pca_trout %>% dplyr::select(PC1,PC2,PC3,PC4,PC5,id)
 
 d.apclus <- apcluster(negDistMat(r=2),df_apclus,q=0.5)
 
